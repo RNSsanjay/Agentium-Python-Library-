@@ -1,10 +1,29 @@
 from setuptools import setup, find_packages
+import os
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+# Read requirements.txt if it exists
+requirements = []
+requirements_file = "requirements.txt"
+if os.path.exists(requirements_file):
+    with open(requirements_file, "r", encoding="utf-8") as fh:
+        requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+else:
+    # Fallback requirements if file doesn't exist
+    requirements = [
+        "numpy>=1.21.0",
+        "pandas>=1.3.0", 
+        "requests>=2.25.0",
+        "pydantic>=2.0.0",
+        "typing-extensions>=4.0.0",
+        "python-dotenv>=0.19.0",
+        "asyncio-throttle>=1.0.0",
+        "aiohttp>=3.8.0",
+        "openai>=1.0.0",
+        "anthropic>=0.3.0"
+    ]
 
 setup(
     name="agentium",
