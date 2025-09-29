@@ -67,16 +67,15 @@ except Exception:
     LANGGRAPH_INTEGRATION_AVAILABLE = False
 
 try:
-    from .integrations.crewai import (
-        get_agentium_crewai_integration,
-        AgentiumCrewAIIntegration,
-        AgentiumCrewAIAgent,
-        AgentiumCrewAITask,
-        AgentiumCrewAICrew
+    from .integrations.gemini import (
+        GeminiIntegration,
+        GeminiConfig,
+        GeminiModel,
+        get_gemini_integration
     )
-    CREWAI_INTEGRATION_AVAILABLE = True
+    GEMINI_INTEGRATION_AVAILABLE = True
 except Exception:
-    CREWAI_INTEGRATION_AVAILABLE = False
+    GEMINI_INTEGRATION_AVAILABLE = False
 
 # Main exports
 __all__ = [
@@ -116,7 +115,7 @@ __all__ = [
     # Integration flags
     'LANGCHAIN_INTEGRATION_AVAILABLE',
     'LANGGRAPH_INTEGRATION_AVAILABLE', 
-    'CREWAI_INTEGRATION_AVAILABLE',
+    'GEMINI_INTEGRATION_AVAILABLE',
 ]
 
 # Add integration exports if available
@@ -137,13 +136,12 @@ if LANGGRAPH_INTEGRATION_AVAILABLE:
         'AgentiumLangGraphWorkflow'
     ])
 
-if CREWAI_INTEGRATION_AVAILABLE:
+if GEMINI_INTEGRATION_AVAILABLE:
     __all__.extend([
-        'get_agentium_crewai_integration',
-        'AgentiumCrewAIIntegration',
-        'AgentiumCrewAIAgent',
-        'AgentiumCrewAITask',
-        'AgentiumCrewAICrew'
+        'GeminiIntegration',
+        'GeminiConfig',
+        'GeminiModel',
+        'get_gemini_integration'
     ])
 
 from typing import Optional, Dict, Any
@@ -186,7 +184,7 @@ class Agentium:
         """Initialize framework integrations"""
         self.langchain_integration = None
         self.langgraph_integration = None
-        self.crewai_integration = None
+        self.gemini_integration = None
         
         if LANGCHAIN_INTEGRATION_AVAILABLE:
             try:
@@ -202,19 +200,19 @@ class Agentium:
             except Exception as e:
                 self.logger.warning(f"Failed to initialize LangGraph integration: {e}")
         
-        if CREWAI_INTEGRATION_AVAILABLE:
+        if GEMINI_INTEGRATION_AVAILABLE:
             try:
-                self.crewai_integration = get_agentium_crewai_integration()
-                self.logger.info("CrewAI integration initialized")
+                self.gemini_integration = get_gemini_integration()
+                self.logger.info("Gemini integration initialized")
             except Exception as e:
-                self.logger.warning(f"Failed to initialize CrewAI integration: {e}")
+                self.logger.warning(f"Failed to initialize Gemini integration: {e}")
     
     def get_integration_status(self) -> Dict[str, bool]:
         """Get the status of all integrations"""
         return {
             'langchain': LANGCHAIN_INTEGRATION_AVAILABLE and self.langchain_integration is not None,
             'langgraph': LANGGRAPH_INTEGRATION_AVAILABLE and self.langgraph_integration is not None,
-            'crewai': CREWAI_INTEGRATION_AVAILABLE and self.crewai_integration is not None,
+            'gemini': GEMINI_INTEGRATION_AVAILABLE and self.gemini_integration is not None,
         }
     
     def process_content(self, content: str, workflow: str = "basic") -> Dict[str, Any]:

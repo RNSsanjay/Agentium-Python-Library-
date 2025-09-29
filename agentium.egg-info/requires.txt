@@ -22,8 +22,8 @@ dateutil>=2.8.0
 textstat>=0.7.0
 scikit-learn>=1.0.0
 
-[crewai]
-crewai>=0.1.0
+[ai]
+google-generativeai>=0.3.0
 
 [dev]
 pytest>=7.0

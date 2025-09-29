@@ -27,10 +27,10 @@ else:
 
 setup(
     name="agentium",
-    version="1.0.0",
+    version="1.1.0",
     author="Sanjay N",
     author_email="2005sanjaynrs@gmail.com",
-    description="A comprehensive toolkit for AI agent development and workflow orchestration",
+    description="A comprehensive toolkit for AI agent development and workflow orchestration with Gemini AI integration",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/RNSsanjay/Agentium-Python-Library",
@@ -45,8 +45,11 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Text Processing :: Linguistic",
+        "Topic :: Communications",
     ],
     python_requires=">=3.8",
     install_requires=requirements,
@@ -65,9 +68,9 @@ setup(
         "langgraph": [
             "langgraph>=0.0.20",
         ],
-        "crewai": [
-            "crewai>=0.1.0",
+        "ai": [
+            "google-generativeai>=0.3.0",
         ],
     },
-    keywords="ai, agents, langchain, langgraph, crewai, nlp, automation, workflow",
+    keywords="ai, agents, langchain, langgraph, gemini, nlp, automation, workflow, google-ai",
 )

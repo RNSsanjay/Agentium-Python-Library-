@@ -19,7 +19,7 @@ agentium/core/template_manager.py
 agentium/core/translator.py
 agentium/core/workflow_helper.py
 agentium/integrations/__init__.py
-agentium/integrations/crewai.py
+agentium/integrations/gemini.py
 agentium/integrations/langchain.py
 agentium/integrations/langgraph.py
 agentium/utils/__init__.py

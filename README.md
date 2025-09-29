@@ -4,22 +4,30 @@
 [![Python Support](https://img.shields.io/pypi/pyversions/agentium.svg)](https://pypi.org/project/agentium/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive Python library designed for AI agent development and workflow orchestration. Agentium provides a rich set of tools and utilities that seamlessly integrate with popular AI frameworks like LangChain, LangGraph, and CrewAI.
+A comprehensive Python library designed for AI agent development and workflow orchestration. Agentium provides a rich set of tools and utilities that seamlessly integrate with popular AI frameworks like LangChain, LangGraph, and now features built-in **Google Gemini API integration**.
+
+## New Features
+
+- **Google Gemini Integration** - Built-in support for Gemini Pro, Gemini 1.5 Pro, and Gemini 1.5 Flash
+- **Model Selection** - Easy switching between different AI models
+- **Enhanced AI Processing** - All core features now support AI-enhanced processing
+- **Advanced Configuration** - Comprehensive model and processing configuration
 
 ## Features
 
-- **🗜️ Condense**: Intelligent content condensation and compression
-- **⚡ Optimizer**: Refine text, code, and workflows for better performance
-- **📋 Rearranger**: Organize and restructure content logically
-- **🔍 Extractor**: Extract structured information from various data sources
-- **📢 Communicator**: Send messages and notifications across platforms
-- **🌐 Translator**: Multi-language translation with tone adaptation
-- **💡 Insight Generator**: Generate actionable insights from data
-- **🔄 Workflow Helper**: Orchestrate complex tasks and triggers
-- **📄 Template Manager**: Standardize outputs with customizable templates
-- **🧠 Memory Helper**: Context storage and retrieval system
-- **📝 Custom Summarizer**: Create summaries tailored to specific needs
-- **📊 Logger Utils**: Track and debug operations with detailed logging
+- **Condense**: Intelligent content condensation and compression with AI enhancement
+- **Optimizer**: Refine text, code, and workflows for better performance
+- **Rearranger**: Organize and restructure content logically
+- **Extractor**: Extract structured information from various data sources
+- **Communicator**: Send messages and notifications across platforms
+- **Translator**: Multi-language translation with AI-powered tone adaptation
+- **Insight Generator**: Generate actionable insights from data using AI
+- **Workflow Helper**: Orchestrate complex tasks and triggers
+- **Template Manager**: Standardize outputs with customizable templates
+- **Memory Helper**: Context storage and retrieval system
+- **Custom Summarizer**: Create AI-enhanced summaries tailored to specific needs
+- **Logger Utils**: Track and debug operations with detailed logging
+- **Gemini Integration**: Native Google Gemini API support with model selection
 
 ## Installation
 
@@ -27,41 +35,240 @@ A comprehensive Python library designed for AI agent development and workflow or
 pip install agentium
 ```
 
-### Framework-specific installations:
+### With AI Enhancement (Recommended):
 
 ```bash
+# For full AI capabilities including Gemini
+pip install agentium google-generativeai
+
 # For LangChain integration
 pip install agentium[langchain]
 
 # For LangGraph integration
 pip install agentium[langgraph]
 
-# For CrewAI integration
-pip install agentium[crewai]
-
 # For development
 pip install agentium[dev]
 ```
 
+## API Key Setup
+
+### Getting Your Google Gemini API Key
+
+To use the AI-enhanced features, you need a Google Gemini API key:
+
+1. **Visit Google AI Studio**
+   - Go to https://makersuite.google.com/app/apikey
+   - Sign in with your Google account
+
+2. **Create API Key**
+   - Click "Create API Key"
+   - Choose "Create API key in new project" or select an existing project
+   - Copy the generated API key and save it securely
+
+3. **Set Up Your API Key** (Choose one method):
+
+   **Method 1: Environment Variable (Recommended)**
+   ```bash
+   # Windows (Command Prompt)
+   set GEMINI_API_KEY=your_api_key_here
+   
+   # Windows (PowerShell)
+   $env:GEMINI_API_KEY="your_api_key_here"
+   
+   # Linux/Mac
+   export GEMINI_API_KEY=your_api_key_here
+   ```
+
+   **Method 2: In Your Python Code**
+   ```python
+   from agentium.integrations.gemini import GeminiIntegration
+   
+   # Initialize with API key directly
+   gemini = GeminiIntegration(api_key="your_api_key_here")
+   ```
+
+   **Method 3: Using .env File**
+   ```bash
+   # Create a .env file in your project root
+   echo "GEMINI_API_KEY=your_api_key_here" > .env
+   ```
+   ```python
+   import os
+   from dotenv import load_dotenv
+   
+   load_dotenv()
+   api_key = os.getenv('GEMINI_API_KEY')
+   ```
+
+### Important Security Notes
+
+- **Never commit API keys to version control**
+- **Use environment variables in production**
+- **Keep your API keys secure and private**
+- **Monitor your API usage in Google Cloud Console**
+
 ## Quick Start
 
 ```python
-from agentium import Condenser, Optimizer, Communicator
+from agentium import Agentium
+from agentium.integrations.gemini import GeminiIntegration
 
-# Initialize components
-condenser = Condenser()
-optimizer = Optimizer()
-communicator = Communicator()
+# Initialize with Gemini AI enhancement
+agentium = Agentium()
+gemini = GeminiIntegration(api_key="your-gemini-api-key")
 
-# Condense text
-condensed = condenser.condense("Your long text here...")
+# Basic text processing
+condensed_text = agentium.condenser.condense("Your long text here...")
+optimized_text = agentium.optimizer.optimize(condensed_text)
 
-# Optimize content
-optimized = optimizer.optimize_text("Text to optimize")
+# AI-enhanced processing
+enhanced_summary = gemini.enhance_condenser(
+    text="Complex document content",
+    style="executive-summary"
+)
 
-# Send notification
-communicator.send_notification("Process completed!", channel="email")
+# Workflow orchestration
+workflow_result = agentium.workflow_helper.process_workflow({
+    "input": "Data to process",
+    "steps": ["condense", "optimize", "extract"],
+    "ai_enhanced": True
+})
+
+print(f"Processed result: {workflow_result}")
 ```
+
+## Configuration with Gemini
+
+```python
+from agentium.integrations.gemini import GeminiIntegration, GeminiConfig
+
+# Configure Gemini integration
+config = GeminiConfig(
+    model_name="gemini-1.5-pro",
+    temperature=0.7,
+    max_tokens=1000
+)
+
+gemini = GeminiIntegration(
+    api_key="your-api-key",
+    config=config
+)
+
+# Use with any Agentium feature
+enhanced_insights = gemini.enhance_insights(
+    data="Your data here",
+    context="Financial analysis",
+    insight_type="trend_analysis"
+)
+```
+
+## Sample Projects
+
+The `sample_projects/` directory contains 5 comprehensive examples demonstrating all Agentium features:
+
+### 1. Content Processing Pipeline (`content_pipeline.py`)
+Advanced document processing system with AI-enhanced content analysis, multi-format support, and intelligent workflow orchestration.
+
+**Features Demonstrated:**
+- Content condensation and optimization
+- Multi-language translation with tone adaptation  
+- Template-based report generation
+- Memory management and context storage
+- Gemini AI enhancement for superior content quality
+
+```python
+# Example usage
+pipeline = ContentProcessingPipeline()
+result = pipeline.process_document("document.pdf", output_format="executive-summary")
+```
+
+### 2. Multilingual News Analyzer (`news_analyzer.py`)
+Real-time news analysis system with sentiment analysis, trend detection, and multi-language support.
+
+**Features Demonstrated:**
+- Real-time content extraction and processing
+- Advanced insight generation with trend analysis
+- Multi-language translation and sentiment analysis
+- Workflow orchestration for news processing
+- AI-enhanced content understanding
+
+```python
+# Example usage
+analyzer = NewsAnalyzer()
+analysis = analyzer.analyze_news_feed("https://news-feed-url", languages=["en", "es", "fr"])
+```
+
+### 3. Data Intelligence Dashboard (`data_dashboard.py`)
+Comprehensive data analysis and visualization system with AI-powered insights.
+
+**Features Demonstrated:**
+- Advanced data extraction and processing
+- AI-enhanced insight generation
+- Real-time data visualization
+- Memory-based context management
+- Intelligent report generation
+
+```python
+# Example usage
+dashboard = DataIntelligenceDashboard()
+insights = dashboard.generate_intelligence_report("sales_data.csv")
+```
+
+### 4. Automated Report Generator (`report_generator.py`)
+Professional report generation system with AI-enhanced content creation and multi-format output.
+
+**Features Demonstrated:**
+- Template-based report generation
+- AI-enhanced content optimization
+- Multi-format output (PDF, HTML, Markdown)
+- Workflow automation for report creation
+- Memory management for report templates
+
+```python
+# Example usage
+generator = AutomatedReportGenerator()
+report = generator.generate_comprehensive_report("project_data", "quarterly-report")
+```
+
+### 5. Smart Communication Hub (`communication_hub.py`)
+Intelligent communication orchestration system with multi-channel messaging and workflow automation.
+
+**Features Demonstrated:**
+- Multi-channel communication management
+- Workflow-based message orchestration
+- AI-enhanced content optimization for different channels
+- Memory management for communication history
+- Intelligent message routing and optimization
+
+```python
+# Example usage
+hub = SmartCommunicationHub()
+result = hub.process_and_distribute_message(
+    "Important announcement",
+    channels=["email", "slack", "teams"],
+    ai_enhanced=True
+)
+```
+
+## Streamlit Demo
+
+Try the interactive demo to explore all Agentium features:
+
+```bash
+# Install Streamlit
+pip install streamlit plotly pandas
+
+# Run the demo
+streamlit run sample_projects/agentium_streamlit_demo.py
+```
+
+The demo includes:
+- Interactive feature testing
+- Real-time processing examples
+- AI model selection interface
+- Processing history and export capabilities
+- Comprehensive feature demonstrations
 
 ## Framework Integration
 
@@ -86,17 +293,6 @@ from langgraph import Graph
 graph = Graph()
 graph.add_node("condenser", AgentiumNode.condenser_node)
 graph.add_node("optimizer", AgentiumNode.optimizer_node)
-```
-
-### CrewAI Integration
-
-```python
-from agentium.integrations.crewai import AgentiumCrewTool
-from crewai import Agent, Task, Crew
-
-# Create tools for CrewAI agents
-tools = AgentiumCrewTool.get_all_tools()
-agent = Agent(tools=tools, ...)
 ```
 
 ## Documentation
